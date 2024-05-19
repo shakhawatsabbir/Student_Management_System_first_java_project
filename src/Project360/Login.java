@@ -7,6 +7,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Image;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
@@ -15,6 +18,8 @@ import java.sql.ResultSet;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import javax.swing.SwingConstants;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Login extends JFrame {
 
@@ -40,11 +45,12 @@ public class Login extends JFrame {
 			}
 		});
 	}
-
+ 
 	/**
 	 * Create the frame.
 	 */
 	public Login() {
+		setUndecorated(true);
 		setTitle("Student Managment System");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1040, 720);
@@ -56,43 +62,48 @@ public class Login extends JFrame {
 		contentPane.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(0, 0, 1024, 681);
+		panel.setBounds(0, 0, 1040, 720);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Student Managment System");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 22));
-		lblNewLabel.setBounds(345, 35, 311, 27);
-		panel.add(lblNewLabel);
+//		
 		
 		JButton btnNewButton_1 = new JButton("New Student Registation");
+		btnNewButton_1.setForeground(new Color(0, 128, 255));
+		btnNewButton_1.setFont(new Font("Raleway SemiBold", Font.BOLD, 12));
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Registation.main(null);
 				setVisible(false);
 			}
 		});
-		btnNewButton_1.setBounds(418, 391, 258, 23);
+		btnNewButton_1.setBounds(469, 459, 231, 30);
 		panel.add(btnNewButton_1);
 		
+		
+		
+		
+		
 		JLabel emailTitle = new JLabel("Email");
-		emailTitle.setFont(new Font("Maiandra GD", Font.BOLD, 16));
-		emailTitle.setBounds(342, 254, 46, 14);
+		emailTitle.setForeground(new Color(255, 255, 255));
+		emailTitle.setFont(new Font("Raleway SemiBold", Font.BOLD, 22));
+		emailTitle.setBounds(288, 254, 100, 35);
 		panel.add(emailTitle);
 		
 		JLabel passwordTitle = new JLabel("Password");
-		passwordTitle.setFont(new Font("Maiandra GD", Font.BOLD, 16));
-		passwordTitle.setBounds(310, 312, 100, 14);
+		passwordTitle.setForeground(new Color(255, 255, 255));
+		passwordTitle.setFont(new Font("Raleway SemiBold", Font.BOLD, 22));
+		passwordTitle.setBounds(288, 312, 122, 35);
 		panel.add(passwordTitle);
 		
 		emailFild = new JTextField();
 		emailFild.setColumns(10);
-		emailFild.setBounds(420, 250, 256, 27);
+		emailFild.setBounds(420, 250, 280, 35);
 		panel.add(emailFild);
 		
 		passwordFild = new JTextField();
 		passwordFild.setColumns(10);
-		passwordFild.setBounds(420, 308, 256, 27);
+		passwordFild.setBounds(420, 312, 280, 35);
 		panel.add(passwordFild);
 		
 		JLabel errorMassage = new JLabel("");
@@ -102,6 +113,7 @@ public class Login extends JFrame {
 		panel.add(errorMassage);
 		
 		JButton login = new JButton("login");
+		login.setFont(new Font("Raleway SemiBold", Font.BOLD, 18));
 		login.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				email = emailFild.getText();
@@ -121,15 +133,75 @@ public class Login extends JFrame {
 			
 			}
 		});
-		login.setBounds(554, 346, 122, 27);
+		login.setBounds(560, 382, 140, 30);
 		panel.add(login);
 		
-		JLabel lblNewLabel_6 = new JLabel("Student Login");
-		lblNewLabel_6.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_6.setFont(new Font("Kalpurush", Font.BOLD, 20));
-		lblNewLabel_6.setBounds(373, 123, 283, 25);
-		panel.add(lblNewLabel_6);
-	
+
+		
+		JLabel lblTitle = new JLabel("Login");
+		lblTitle.setForeground(new Color(255, 255, 255));
+		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTitle.setFont(new Font("Raleway SemiBold", Font.BOLD, 35));
+		lblTitle.setBounds(10, 140, 1020, 50);
+		panel.add(lblTitle);
+ 
+		
+		
+//		JLabel title = new JLabel();
+//		title.setIcon(new ImageIcon(Login.class.getResource("/main/icon/221103094112-4840555__1_-removebg-preview.png")));
+//		title.setOpaque(true);
+//		title.setHorizontalAlignment(SwingConstants.CENTER);
+//		title.setForeground(Color.WHITE);
+//		title.setBackground(Color.WHITE);
+//		title.setBounds(198, 60, 588, 69);
+//		panel.add(title);
+//		
+//
+//		ImageIcon backgroudImage = new ImageIcon(Dashboard.class.getResource("/main/icon/221103094112-4840555__1_-removebg-preview.png"));
+//		Image newBackgroudImage = backgroudImage.getImage();
+//		Image resizeNewBackgroudImage = newBackgroudImage.getScaledInstance(200, 40, java.awt.Image.SCALE_SMOOTH);
+//		title.setIcon(new ImageIcon(resizeNewBackgroudImage)); 
+		
+		
+		
+		
+		
+		JLabel title = new JLabel();
+		title.setBounds(10, 47, 1020, 80);
+		panel.add(title);
+		title.setHorizontalAlignment(SwingConstants.CENTER);
+		ImageIcon backgroudImage = new ImageIcon(Dashboard.class.getResource("/main/icon/221103094112-4840555__1_-removebg-preview.png"));
+		Image newBackgroudImage = backgroudImage.getImage();
+		Image resizeNewBackgroudImage = newBackgroudImage.getScaledInstance(300, 70, java.awt.Image.SCALE_SMOOTH);
+		title.setIcon(new ImageIcon(resizeNewBackgroudImage)); 
+		
+		
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				setVisible(false);
+			}
+		});
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(951, 11, 67, 30);
+		panel.add(lblNewLabel);
+		ImageIcon lblNewLabelImage2 = new ImageIcon(Login.class.getResource("/main/icon/close.png"));
+		Image newlblNewLabelImage2 = lblNewLabelImage2.getImage();
+		Image resizelblNewLabelImage2 = newlblNewLabelImage2.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);
+		lblNewLabel.setIcon(new ImageIcon(resizelblNewLabelImage2));
+		
+		JLabel lblNewLabel_3 = new JLabel("");
+		lblNewLabel_3.setBackground(new Color(0, 255, 255));
+		lblNewLabel_3.setBounds(0, 0, 1040, 720);
+		panel.add(lblNewLabel_3); 
+		ImageIcon backgroudImage2 = new ImageIcon(Dashboard.class.getResource("/main/icon/background5.jpeg"));
+		Image newBackgroudImage2 = backgroudImage2.getImage();
+		Image resizeNewBackgroudImage2 = newBackgroudImage2.getScaledInstance(1200, 800, java.awt.Image.SCALE_SMOOTH);
+		lblNewLabel_3.setIcon(new ImageIcon(resizeNewBackgroudImage2));
+		
+		
 	}
 	
 	public static int loginCheck() throws Exception {
@@ -164,7 +236,4 @@ public class Login extends JFrame {
 		
 		return userStatus ;
 	}
-	
-	
-	
 }

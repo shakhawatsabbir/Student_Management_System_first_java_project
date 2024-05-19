@@ -6,7 +6,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Color;
-import java.awt.Dimension;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import java.awt.Font;
@@ -22,13 +21,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
-import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JMenuItem;
-import javax.swing.event.MenuKeyListener;
-import javax.swing.event.MenuKeyEvent;
 
 public class Dashboard extends JFrame {
 
@@ -42,14 +37,14 @@ public class Dashboard extends JFrame {
 	private JTextField titleTextField;
 	private JTextField priceTextField;
 	private JTextField crTextField;
-	private JPanel coursesPanel;
+	private JPanel coursesPanel; 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		if(Admin_Login.AdminLoginStatus == 0) {
 			EventQueue.invokeLater(new Runnable() {
-				public void run() {
+				public void run() { 
 					try {
 						Dashboard frame = new Dashboard();
 						frame.setVisible(true);
@@ -72,7 +67,7 @@ public class Dashboard extends JFrame {
 	 * @throws Exception 
 	 */
 	public Dashboard() throws Exception {
-		setUndecorated(true);
+		setUndecorated(true); 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		setTitle("Student Management System");
@@ -84,11 +79,11 @@ public class Dashboard extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-//		DashboardPanel = new JPanel();
-//		DashboardPanel.setBounds(268, 63, 772, 657);
-//		contentPane.add(DashboardPanel);
-//		DashboardPanel.setLayout(null);
-//		DashboardPanel(DashboardPanel);
+		DashboardPanel = new JPanel();
+		DashboardPanel.setBounds(268, 63, 772, 657);
+		contentPane.add(DashboardPanel);
+		DashboardPanel.setLayout(null);
+		DashboardPanel(DashboardPanel);
 		
 	
 		coursesPanel = new JPanel();
@@ -107,19 +102,40 @@ public class Dashboard extends JFrame {
 		
 
 		JPanel menuPanel = new JPanel();
-		menuPanel.setBackground(new Color(128, 128, 255));
-		menuPanel.setBounds(268, 0, 772, 63);
+		menuPanel.setBackground(new Color(143, 181, 184));
+		menuPanel.setBounds(0, 0, 1040, 63);
 		contentPane.add(menuPanel);
 		menuPanel.setLayout(null);
 		JLabel homeLabel = menuPanel2(menuPanel);
 		
 		
 		sidebarPanel = new JPanel();
-		sidebarPanel.setBackground(new Color(109, 188, 231));
-		sidebarPanel.setBounds(0, 0, 268, 720);
+		sidebarPanel.setBackground(new Color(255, 255, 255));
+		sidebarPanel.setBounds(0, 63, 268, 657);
 		contentPane.add(sidebarPanel);
 		sidebarPanel.setLayout(null);
 		SidebarPanel(sidebarPanel, DashboardPanel, homeLabel, coursesPanel,StudentRegistaionPanel);
+		
+		JLabel title = new JLabel();
+		title.setBounds(23, 0, 218, 50);
+		menuPanel.add(title);
+		title.setOpaque(true);
+		title.setBackground(new Color(255, 255, 255));
+		title.setForeground(new Color(255, 255, 255));
+		title.setHorizontalAlignment(SwingConstants.CENTER);
+		ImageIcon imageLogo = new ImageIcon(Dashboard.class.getResource("/main/icon/221103094112-4840555__1_-removebg-preview.png"));
+		Image imgLogo = imageLogo.getImage();
+		Image resizeImage = imgLogo.getScaledInstance(200, 40, java.awt.Image.SCALE_SMOOTH);
+		title.setIcon(new ImageIcon(resizeImage));
+		
+		JLabel lblNewLabel_3 = new JLabel("");
+		lblNewLabel_3.setBackground(new Color(0, 255, 255));
+		lblNewLabel_3.setBounds(0, 0, 772, 657);
+		StudentRegistaionPanel.add(lblNewLabel_3); 
+		ImageIcon backgroudImage = new ImageIcon(Dashboard.class.getResource("/main/icon/background5.jpeg"));
+		Image newBackgroudImage = backgroudImage.getImage();
+		Image resizeNewBackgroudImage = newBackgroudImage.getScaledInstance(900, 700, java.awt.Image.SCALE_SMOOTH);
+		lblNewLabel_3.setIcon(new ImageIcon(resizeNewBackgroudImage));
 		
 		
 	}
@@ -127,46 +143,51 @@ public class Dashboard extends JFrame {
 	{
 		
 		JLabel lblNewLabel_1 = new JLabel("Name");
-		lblNewLabel_1.setFont(new Font("Maiandra GD", Font.BOLD, 16));
-		lblNewLabel_1.setBounds(193, 215, 98, 27);
+		lblNewLabel_1.setForeground(new Color(255, 255, 255));
+		lblNewLabel_1.setFont(new Font("Maiandra GD", Font.BOLD, 20));
+		lblNewLabel_1.setBounds(140, 203, 141, 34);
 		StudentRegistaionPanel.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("Email");
-		lblNewLabel_2.setFont(new Font("Maiandra GD", Font.BOLD, 16));
-		lblNewLabel_2.setBounds(193, 265, 98, 27);
+		lblNewLabel_2.setForeground(new Color(255, 255, 255));
+		lblNewLabel_2.setFont(new Font("Maiandra GD", Font.BOLD, 20));
+		lblNewLabel_2.setBounds(140, 281, 141, 35);
 		StudentRegistaionPanel.add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_4 = new JLabel("Password");
-		lblNewLabel_4.setFont(new Font("Maiandra GD", Font.BOLD, 16));
-		lblNewLabel_4.setBounds(193, 317, 98, 27);
+		lblNewLabel_4.setForeground(new Color(255, 255, 255));
+		lblNewLabel_4.setFont(new Font("Maiandra GD", Font.BOLD, 20));
+		lblNewLabel_4.setBounds(140, 351, 141, 35);
 		StudentRegistaionPanel.add(lblNewLabel_4);
 		
-		JLabel lblNewLabel_5 = new JLabel("Re-Password");
-		lblNewLabel_5.setFont(new Font("Maiandra GD", Font.BOLD, 16));
-		lblNewLabel_5.setBounds(193, 363, 98, 27);
+		JLabel lblNewLabel_5 = new JLabel("Re - Password");
+		lblNewLabel_5.setForeground(new Color(255, 255, 255));
+		lblNewLabel_5.setFont(new Font("Maiandra GD", Font.BOLD, 20));
+		lblNewLabel_5.setBounds(140, 425, 141, 39);
 		StudentRegistaionPanel.add(lblNewLabel_5);
 		
 		JTextField textField_name = new JTextField();
 		textField_name.setColumns(10);
-		textField_name.setBounds(316, 215, 254, 27);
+		textField_name.setBounds(305, 203, 255, 34);
 		StudentRegistaionPanel.add(textField_name);
 		
 		JTextField textField_email = new JTextField();
 		textField_email.setColumns(10);
-		textField_email.setBounds(316, 265, 254, 27);
+		textField_email.setBounds(305, 281, 255, 34);
 		StudentRegistaionPanel.add(textField_email);
 		
 		JTextField textField_password = new JTextField();
 		textField_password.setColumns(10);
-		textField_password.setBounds(316, 317, 254, 27);
+		textField_password.setBounds(305, 351, 255, 34);
 		StudentRegistaionPanel.add(textField_password);
 		
 		JTextField textField_rePass = new JTextField();
 		textField_rePass.setColumns(10);
-		textField_rePass.setBounds(316, 363, 254, 27);
+		textField_rePass.setBounds(305, 425, 255, 34);
 		StudentRegistaionPanel.add(textField_rePass);
 		
-		JButton btnNewButton_2 = new JButton("Signup");
+		JButton btnNewButton_2 = new JButton("Sign up");
+		btnNewButton_2.setBackground(new Color(255, 255, 255));
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -193,14 +214,16 @@ public class Dashboard extends JFrame {
 				
 			}
 		});
-		btnNewButton_2.setBounds(472, 419, 98, 27);
+		btnNewButton_2.setBounds(440, 496, 120, 34);
 		btnNewButton_2.setFont(new Font("Maiandra GD", Font.BOLD, 16));
 		StudentRegistaionPanel.add(btnNewButton_2);
 		
-		JLabel lblNewLabel_6 = new JLabel("Registation");
-		lblNewLabel_6.setFont(new Font("Kalpurush", Font.BOLD, 20));
+		JLabel lblNewLabel_6 = new JLabel(" New Student Registation");
+		lblNewLabel_6.setBackground(new Color(128, 128, 128));
+		lblNewLabel_6.setForeground(new Color(255, 255, 255));
+		lblNewLabel_6.setFont(new Font("Kalpurush", Font.BOLD, 35));
 		lblNewLabel_6.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_6.setBounds(253, 125, 283, 25);
+		lblNewLabel_6.setBounds(10, 77, 752, 63);
 		StudentRegistaionPanel.add(lblNewLabel_6);
 	}
 	
@@ -208,9 +231,9 @@ public class Dashboard extends JFrame {
 	{
 		JLabel pageTitle = new JLabel("Admin Dashboard");
 		pageTitle.setHorizontalAlignment(SwingConstants.LEFT);
-		pageTitle.setForeground(Color.WHITE);
+		pageTitle.setForeground(new Color(0, 0, 0));
 		pageTitle.setFont(new Font("Montserrat", Font.BOLD, 18));
-		pageTitle.setBounds(10, 0, 187, 40);
+		pageTitle.setBounds(278, 0, 187, 40);
 		menuPanel.add(pageTitle);
 		
 		JLabel lblNewLabel = new JLabel("");
@@ -221,7 +244,7 @@ public class Dashboard extends JFrame {
 			}
 		});
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(704, 18, 58, 22);
+		lblNewLabel.setBounds(972, 18, 58, 22);
 		menuPanel.add(lblNewLabel);
 		
 		ImageIcon closeIcon = new ImageIcon(Dashboard.class.getResource("/main/icon/3917189.png"));
@@ -232,8 +255,8 @@ public class Dashboard extends JFrame {
 		JLabel lblHome = new JLabel("Home");
 		lblHome.setHorizontalAlignment(SwingConstants.LEFT);
 		lblHome.setForeground(Color.WHITE);
-		lblHome.setFont(new Font("Montserrat", Font.PLAIN, 14));
-		lblHome.setBounds(10, 30, 187, 22);
+		lblHome.setFont(new Font("Montserrat", Font.BOLD, 14));
+		lblHome.setBounds(278, 30, 187, 22);
 		menuPanel.add(lblHome);
 		
 		return lblHome;
@@ -241,18 +264,6 @@ public class Dashboard extends JFrame {
 	
 	public void SidebarPanel(JPanel sidebarPanel , JPanel DashboardPanel, JLabel homeLabel, JPanel coursesPanel, JPanel StudentRegistaionPanel) {
 		
-		JLabel title = new JLabel();
-		title.setOpaque(true);
-		title.setBackground(new Color(255, 255, 255));
-		title.setForeground(new Color(255, 255, 255));
-		title.setHorizontalAlignment(SwingConstants.CENTER);
-		title.setBounds(10, 11, 248, 46);
-		sidebarPanel.add(title); 
-		
-		ImageIcon imageLogo = new ImageIcon(Dashboard.class.getResource("/main/icon/221103094112-4840555__1_-removebg-preview.png"));
-		Image imgLogo = imageLogo.getImage();
-		Image resizeImage = imgLogo.getScaledInstance(200, 40, java.awt.Image.SCALE_SMOOTH);
-		title.setIcon(new ImageIcon(resizeImage));
 		
 		
 		JMenu homeMenuBtn = new JMenu("Home");
@@ -265,11 +276,11 @@ public class Dashboard extends JFrame {
 				homeLabel.setText("Home");
 			}
 		});
-		homeMenuBtn.setFont(new Font("Segoe UI", Font.BOLD, 16));
+		homeMenuBtn.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		homeMenuBtn.setForeground(new Color(255, 255, 255));
 		homeMenuBtn.setIcon(new ImageIcon(Dashboard.class.getResource("/main/icon/3917033.png")));
 		homeMenuBtn.setOpaque(true);
-		homeMenuBtn.setBackground(new Color(128, 128, 255));
+		homeMenuBtn.setBackground(new Color(143, 181, 184));
 		homeMenuBtn.setBounds(40, 113, 187, 30);
 		sidebarPanel.add(homeMenuBtn);
 		
@@ -283,15 +294,15 @@ public class Dashboard extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				DashboardPanel.setVisible(false);
-				coursesPanel.setVisible(true);
-				StudentRegistaionPanel.setVisible(false);
+				coursesPanel.setVisible(false);
+				StudentRegistaionPanel.setVisible(true);
 				homeLabel.setText("Student Resistation");
 			}
 		}); 
 		studentRegistationMenuBtn.setOpaque(true);
 		studentRegistationMenuBtn.setForeground(Color.WHITE);
 		studentRegistationMenuBtn.setFont(new Font("Segoe UI", Font.BOLD, 12));
-		studentRegistationMenuBtn.setBackground(new Color(128, 128, 255));
+		studentRegistationMenuBtn.setBackground(new Color(143, 181, 184));
 		studentRegistationMenuBtn.setBounds(40, 168, 187, 30);
 		sidebarPanel.add(studentRegistationMenuBtn);
 		
@@ -314,7 +325,7 @@ public class Dashboard extends JFrame {
 		coursesAddMenuBtn.setOpaque(true);
 		coursesAddMenuBtn.setForeground(Color.WHITE);
 		coursesAddMenuBtn.setFont(new Font("Segoe UI", Font.BOLD, 12));
-		coursesAddMenuBtn.setBackground(new Color(128, 128, 255));
+		coursesAddMenuBtn.setBackground(new Color(143, 181, 184));
 		coursesAddMenuBtn.setBounds(40, 224, 187, 30);
 		sidebarPanel.add(coursesAddMenuBtn);
 		
@@ -337,7 +348,7 @@ public class Dashboard extends JFrame {
 		LogoutBtn.setOpaque(true);
 		LogoutBtn.setForeground(Color.WHITE);
 		LogoutBtn.setFont(new Font("Segoe UI", Font.BOLD, 12));
-		LogoutBtn.setBackground(new Color(128, 128, 255));
+		LogoutBtn.setBackground(new Color(143, 181, 184));
 		LogoutBtn.setBounds(40, 277, 187, 30);
 		sidebarPanel.add(LogoutBtn);
 		
@@ -351,12 +362,13 @@ public class Dashboard extends JFrame {
 	
 	public void DashboardPanel(JPanel DashboardPanel) throws Exception {
 		JPanel studentCountPanel = new JPanel();
-		studentCountPanel.setBounds(72, 76, 286, 161);
+		studentCountPanel.setBounds(52, 76, 286, 161);
 		DashboardPanel.add(studentCountPanel);
-		studentCountPanel.setBackground(new Color(128, 128, 255));
+		studentCountPanel.setBackground(new Color(143, 181, 184));
 		studentCountPanel.setLayout(null);
 		
 			JLabel totalStudentTitle = new JLabel("Total Student");
+			totalStudentTitle.setBackground(new Color(255, 255, 255));
 			totalStudentTitle.setForeground(new Color(255, 255, 255));
 			totalStudentTitle.setHorizontalAlignment(SwingConstants.CENTER);
 			totalStudentTitle.setFont(new Font("Raleway SemiBold", Font.PLAIN, 25));
@@ -374,10 +386,10 @@ public class Dashboard extends JFrame {
 			
 			
 		JPanel courseCountPanel = new JPanel();
-		courseCountPanel.setBounds(411, 76, 286, 161);
+		courseCountPanel.setBounds(425, 76, 286, 161);
 		DashboardPanel.add(courseCountPanel);
 		courseCountPanel.setLayout(null);
-		courseCountPanel.setBackground(new Color(128, 128, 255));
+		courseCountPanel.setBackground(new Color(143, 181, 184));
 		
 			JLabel totalCourseTitle = new JLabel("Total Course");
 			totalCourseTitle.setHorizontalAlignment(SwingConstants.CENTER);
@@ -395,7 +407,7 @@ public class Dashboard extends JFrame {
 		
 		
 		JPanel studentListPanel = new JPanel();
-		studentListPanel.setBounds(72, 293, 286, 243);
+		studentListPanel.setBounds(36, 293, 322, 243);
 		DashboardPanel.add(studentListPanel);
 		studentListPanel.setBackground(new Color(109, 188, 231));
 		studentListPanel.setLayout(null);
@@ -404,11 +416,11 @@ public class Dashboard extends JFrame {
 			studentListTitle.setForeground(new Color(255, 255, 255));
 			studentListTitle.setHorizontalAlignment(SwingConstants.CENTER);
 			studentListTitle.setFont(new Font("Raleway SemiBold", Font.PLAIN, 25));
-			studentListTitle.setBounds(10, 0, 266, 44);
+			studentListTitle.setBounds(10, 0, 302, 44);
 			studentListPanel.add(studentListTitle);
 			
 			JScrollPane studentListScrollPane = new JScrollPane();
-			studentListScrollPane.setBounds(10, 52, 266, 180);
+			studentListScrollPane.setBounds(10, 52, 302, 180);
 			studentListPanel.add(studentListScrollPane);
 			
 			StudentTable = new JTable();
@@ -433,7 +445,7 @@ public class Dashboard extends JFrame {
 			}
 		
 		JPanel courseListPanel = new JPanel();
-		courseListPanel.setBounds(411, 293, 286, 243);
+		courseListPanel.setBounds(411, 293, 322, 243);
 		DashboardPanel.add(courseListPanel);
 		courseListPanel.setLayout(null);
 		courseListPanel.setBackground(new Color(109, 188, 231));
@@ -442,11 +454,11 @@ public class Dashboard extends JFrame {
 			courseListTitle.setHorizontalAlignment(SwingConstants.CENTER);
 			courseListTitle.setForeground(Color.WHITE);
 			courseListTitle.setFont(new Font("Raleway SemiBold", Font.PLAIN, 25));
-			courseListTitle.setBounds(10, 0, 266, 44);
+			courseListTitle.setBounds(10, 0, 302, 44);
 			courseListPanel.add(courseListTitle);
 			
 			JScrollPane courseListScrollPane = new JScrollPane();
-			courseListScrollPane.setBounds(10, 51, 266, 181);
+			courseListScrollPane.setBounds(10, 51, 302, 181);
 			courseListPanel.add(courseListScrollPane);
 			
 			table = new JTable();
@@ -468,6 +480,15 @@ public class Dashboard extends JFrame {
 				model3.addRow(colRow);
 			}
 			
+
+			JLabel lblNewLabel_3 = new JLabel("");
+			lblNewLabel_3.setBackground(new Color(0, 255, 255));
+			lblNewLabel_3.setBounds(0, 0, 772, 657);
+			DashboardPanel.add(lblNewLabel_3); 
+			ImageIcon backgroudImage = new ImageIcon(Dashboard.class.getResource("/main/icon/background5.jpeg"));
+			Image newBackgroudImage = backgroudImage.getImage();
+			Image resizeNewBackgroudImage = newBackgroudImage.getScaledInstance(900, 700, java.awt.Image.SCALE_SMOOTH);
+			lblNewLabel_3.setIcon(new ImageIcon(resizeNewBackgroudImage)); 
 			
 		totalStudentCount.setText(String.valueOf(totalStudent));
 		totalCourseCount.setText(String.valueOf(totalCourse));
@@ -477,42 +498,47 @@ public class Dashboard extends JFrame {
 	
 	public  void CoursesPanel(JPanel CoursesPanel) throws Exception {
 		
-		JLabel lblTitle = new JLabel("Courses Insart");
+		
+		JLabel lblTitle = new JLabel("New Courses Insart");
+		lblTitle.setForeground(new Color(255, 255, 255));
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitle.setFont(new Font("Raleway SemiBold", Font.PLAIN, 25));
-		lblTitle.setBounds(250, 26, 293, 32);
+		lblTitle.setFont(new Font("Raleway SemiBold", Font.BOLD, 35));
+		lblTitle.setBounds(0, 34, 752, 32);
 		CoursesPanel.add(lblTitle);
 		
 		JLabel inputTitle = new JLabel("Title");
+		inputTitle.setForeground(new Color(255, 255, 255));
 		inputTitle.setFont(new Font("Raleway SemiBold", Font.PLAIN, 18));
-		inputTitle.setBounds(145, 102, 123, 20);
+		inputTitle.setBounds(145, 126, 123, 20);
 		CoursesPanel.add(inputTitle);
 		
 		titleTextField = new JTextField();
 		titleTextField.setColumns(10);
-		titleTextField.setBounds(302, 102, 241, 32);
+		titleTextField.setBounds(302, 126, 241, 32);
 		CoursesPanel.add(titleTextField);
 		
 		JLabel inputPrice = new JLabel("Price");
+		inputPrice.setForeground(new Color(255, 255, 255));
 		inputPrice.setFont(new Font("Raleway SemiBold", Font.PLAIN, 18));
-		inputPrice.setBounds(145, 166, 123, 20);
+		inputPrice.setBounds(145, 190, 123, 20);
 		CoursesPanel.add(inputPrice);
 		
 		priceTextField = new JTextField();
 		priceTextField.setColumns(10);
-		priceTextField.setBounds(302, 166, 241, 32);
+		priceTextField.setBounds(302, 190, 241, 32);
 		CoursesPanel.add(priceTextField);
 		
 		
 		
 		JLabel inputCreditHours = new JLabel("Credit Hours");
+		inputCreditHours.setForeground(new Color(255, 255, 255));
 		inputCreditHours.setFont(new Font("Raleway SemiBold", Font.PLAIN, 18));
-		inputCreditHours.setBounds(145, 233, 123, 20);
+		inputCreditHours.setBounds(145, 257, 123, 20);
 		CoursesPanel.add(inputCreditHours);
 		
 		crTextField = new JTextField();
 		crTextField.setColumns(10);
-		crTextField.setBounds(302, 233, 241, 32);
+		crTextField.setBounds(302, 257, 241, 32);
 		CoursesPanel.add(crTextField);
 		
 		JButton coursesSubmit = new JButton("Submit");
@@ -536,13 +562,13 @@ public class Dashboard extends JFrame {
 			}
 		});
 		coursesSubmit.setFont(new Font("Raleway Black", Font.PLAIN, 16));
-		coursesSubmit.setBounds(406, 291, 137, 29);
+		coursesSubmit.setBounds(406, 315, 137, 29);
 		CoursesPanel.add(coursesSubmit);
 		
 		
 		
 		JPanel coursesCourseListPanel = new JPanel();
-		coursesCourseListPanel.setBounds(45, 352, 664, 287);
+		coursesCourseListPanel.setBounds(55, 388, 664, 243);
 		CoursesPanel.add(coursesCourseListPanel);
 		coursesCourseListPanel.setLayout(null);
 		coursesCourseListPanel.setBackground(new Color(49, 186, 215));
@@ -555,7 +581,7 @@ public class Dashboard extends JFrame {
 			coursesCourseListPanel.add(courseCourseListTitle);
 			
 			JScrollPane courseCourseListScrollPane = new JScrollPane();
-			courseCourseListScrollPane.setBounds(10, 55, 644, 221);
+			courseCourseListScrollPane.setBounds(10, 55, 644, 177);
 			coursesCourseListPanel.add(courseCourseListScrollPane);
 			
 			table = new JTable();
@@ -577,6 +603,16 @@ public class Dashboard extends JFrame {
 				String colRow[] = {cId, cTitle,cHours};
 				model.addRow(colRow);
 			}
+			
+
+			JLabel lblNewLabel_3 = new JLabel("");
+			lblNewLabel_3.setBackground(new Color(0, 255, 255));
+			lblNewLabel_3.setBounds(0, 0, 772, 657);
+			CoursesPanel.add(lblNewLabel_3); 
+			ImageIcon backgroudImage = new ImageIcon(Dashboard.class.getResource("/main/icon/background5.jpeg"));
+			Image newBackgroudImage = backgroudImage.getImage();
+			Image resizeNewBackgroudImage = newBackgroudImage.getScaledInstance(900, 700, java.awt.Image.SCALE_SMOOTH);
+			lblNewLabel_3.setIcon(new ImageIcon(resizeNewBackgroudImage));
 	}
 	
 	
