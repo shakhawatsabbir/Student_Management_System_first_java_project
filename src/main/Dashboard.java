@@ -153,7 +153,7 @@ public class Dashboard extends JFrame {
 		ImageIcon menuImage2 = new ImageIcon(Dashboard.class.getResource("/main/icon/3917033.png"));
 		Image menuImg2 = menuImage2.getImage();
 		Image newMenuImg2 = menuImg2.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);
-		menuLblIcon2.setIcon(new ImageIcon(newMenuImg2));
+		menuLblIcon2.setIcon(new ImageIcon(newMenuImg2)); 
 		
 		JPanel menuPanel3 = new JPanel();
 		menuPanel3.setLayout(null);

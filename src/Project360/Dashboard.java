@@ -1,21 +1,19 @@
 package Project360;
 
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-
 import java.awt.Color;
+import java.awt.Dimension;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import java.awt.Font;
+import java.awt.Image;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
@@ -23,6 +21,14 @@ import javax.swing.JTable;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
+import javax.swing.ImageIcon;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JMenuItem;
+import javax.swing.event.MenuKeyListener;
+import javax.swing.event.MenuKeyEvent;
 
 public class Dashboard extends JFrame {
 
@@ -66,7 +72,8 @@ public class Dashboard extends JFrame {
 	 * @throws Exception 
 	 */
 	public Dashboard() throws Exception {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setUndecorated(true);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		setTitle("Student Management System");
 		setBounds(100, 100, 1040, 720);
@@ -77,15 +84,15 @@ public class Dashboard extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		DashboardPanel = new JPanel();
-		DashboardPanel.setBounds(268, 0, 756, 681);
-		contentPane.add(DashboardPanel);
-		DashboardPanel.setLayout(null);
-		DashboardPanel(DashboardPanel);
+//		DashboardPanel = new JPanel();
+//		DashboardPanel.setBounds(268, 63, 772, 657);
+//		contentPane.add(DashboardPanel);
+//		DashboardPanel.setLayout(null);
+//		DashboardPanel(DashboardPanel);
 		
 	
 		coursesPanel = new JPanel();
-		coursesPanel.setBounds(268, 0, 756, 681);
+		coursesPanel.setBounds(268, 63, 772, 657);
 		contentPane.add(coursesPanel);
 		coursesPanel.setVisible(false);
 		coursesPanel.setLayout(null);
@@ -93,23 +100,27 @@ public class Dashboard extends JFrame {
 			
 
 		JPanel StudentRegistaionPanel = new JPanel();
-		StudentRegistaionPanel.setBounds(268, 0, 756, 681);
+		StudentRegistaionPanel.setBounds(268, 63, 772, 657);
 		contentPane.add(StudentRegistaionPanel);
 		StudentRegistaionPanel.setLayout(null);
 		StudentRegistaionPanel(StudentRegistaionPanel);
 		
+
+		JPanel menuPanel = new JPanel();
+		menuPanel.setBackground(new Color(128, 128, 255));
+		menuPanel.setBounds(268, 0, 772, 63);
+		contentPane.add(menuPanel);
+		menuPanel.setLayout(null);
+		JLabel homeLabel = menuPanel2(menuPanel);
+		
 		
 		sidebarPanel = new JPanel();
-		sidebarPanel.setBackground(new Color(0, 64, 128));
-		sidebarPanel.setBounds(0, 0, 268, 681);
+		sidebarPanel.setBackground(new Color(109, 188, 231));
+		sidebarPanel.setBounds(0, 0, 268, 720);
 		contentPane.add(sidebarPanel);
 		sidebarPanel.setLayout(null);
-		SidebarPanel(sidebarPanel, DashboardPanel,coursesPanel,StudentRegistaionPanel);
-			
-					
-				
-					
-					
+		SidebarPanel(sidebarPanel, DashboardPanel, homeLabel, coursesPanel,StudentRegistaionPanel);
+		
 		
 	}
 	public void StudentRegistaionPanel(JPanel StudentRegistaionPanel)
@@ -193,60 +204,148 @@ public class Dashboard extends JFrame {
 		StudentRegistaionPanel.add(lblNewLabel_6);
 	}
 	
-	
-	public void SidebarPanel(JPanel sidebarPanel , JPanel DashboardPanel, JPanel coursesPanel, JPanel StudentRegistaionPanel) {
+	public JLabel menuPanel2(JPanel menuPanel)
+	{
+		JLabel pageTitle = new JLabel("Admin Dashboard");
+		pageTitle.setHorizontalAlignment(SwingConstants.LEFT);
+		pageTitle.setForeground(Color.WHITE);
+		pageTitle.setFont(new Font("Montserrat", Font.BOLD, 18));
+		pageTitle.setBounds(10, 0, 187, 40);
+		menuPanel.add(pageTitle);
 		
-		JLabel title = new JLabel("Admin Dashboard");
-		title.setForeground(new Color(255, 255, 255));
-		title.setHorizontalAlignment(SwingConstants.CENTER);
-		title.setFont(new Font("Montserrat", Font.BOLD, 22));
-		title.setBounds(26, 33, 210, 34);
-		sidebarPanel.add(title);
-		
-		JButton homeButton = new JButton("Home");
-		homeButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				DashboardPanel.setVisible(true);
-				coursesPanel.setVisible(false);
-				StudentRegistaionPanel.setVisible(false);
-			}
-		});
-		homeButton.setBounds(40, 99, 187, 23);
-		sidebarPanel.add(homeButton);
-		
-		JButton registationBtn = new JButton("Student Registation");
-		registationBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				StudentRegistaionPanel.setVisible(true);
-				DashboardPanel.setVisible(false);
-				coursesPanel.setVisible(false);
-				
-			}
-		});
-		registationBtn.setBounds(40, 145, 187, 23);
-		sidebarPanel.add(registationBtn);
-		
-		JButton CourseAddBtn = new JButton("New Course Add");
-		CourseAddBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				DashboardPanel.setVisible(false);
-				coursesPanel.setVisible(true);
-				StudentRegistaionPanel.setVisible(false);
-			}
-		});
-		
-		CourseAddBtn.setBounds(40, 194, 187, 23);
-		sidebarPanel.add(CourseAddBtn);
-		
-		JButton btnLogout = new JButton("Logout");
-		btnLogout.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Admin_Login.main(null);
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 				setVisible(false);
 			}
 		});
-		btnLogout.setBounds(40, 242, 187, 23);
-		sidebarPanel.add(btnLogout);
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(704, 18, 58, 22);
+		menuPanel.add(lblNewLabel);
+		
+		ImageIcon closeIcon = new ImageIcon(Dashboard.class.getResource("/main/icon/3917189.png"));
+		Image  newCloseIconImage = closeIcon.getImage();
+		Image newCloseIconImageResize = newCloseIconImage.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);
+		lblNewLabel.setIcon(new ImageIcon(newCloseIconImageResize));
+		
+		JLabel lblHome = new JLabel("Home");
+		lblHome.setHorizontalAlignment(SwingConstants.LEFT);
+		lblHome.setForeground(Color.WHITE);
+		lblHome.setFont(new Font("Montserrat", Font.PLAIN, 14));
+		lblHome.setBounds(10, 30, 187, 22);
+		menuPanel.add(lblHome);
+		
+		return lblHome;
+	}
+	
+	public void SidebarPanel(JPanel sidebarPanel , JPanel DashboardPanel, JLabel homeLabel, JPanel coursesPanel, JPanel StudentRegistaionPanel) {
+		
+		JLabel title = new JLabel();
+		title.setOpaque(true);
+		title.setBackground(new Color(255, 255, 255));
+		title.setForeground(new Color(255, 255, 255));
+		title.setHorizontalAlignment(SwingConstants.CENTER);
+		title.setBounds(10, 11, 248, 46);
+		sidebarPanel.add(title); 
+		
+		ImageIcon imageLogo = new ImageIcon(Dashboard.class.getResource("/main/icon/221103094112-4840555__1_-removebg-preview.png"));
+		Image imgLogo = imageLogo.getImage();
+		Image resizeImage = imgLogo.getScaledInstance(200, 40, java.awt.Image.SCALE_SMOOTH);
+		title.setIcon(new ImageIcon(resizeImage));
+		
+		
+		JMenu homeMenuBtn = new JMenu("Home");
+		homeMenuBtn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				DashboardPanel.setVisible(true);
+				coursesPanel.setVisible(false);
+				StudentRegistaionPanel.setVisible(false);
+				homeLabel.setText("Home");
+			}
+		});
+		homeMenuBtn.setFont(new Font("Segoe UI", Font.BOLD, 16));
+		homeMenuBtn.setForeground(new Color(255, 255, 255));
+		homeMenuBtn.setIcon(new ImageIcon(Dashboard.class.getResource("/main/icon/3917033.png")));
+		homeMenuBtn.setOpaque(true);
+		homeMenuBtn.setBackground(new Color(128, 128, 255));
+		homeMenuBtn.setBounds(40, 113, 187, 30);
+		sidebarPanel.add(homeMenuBtn);
+		
+		ImageIcon menuIconHome = new ImageIcon(Dashboard.class.getResource("/main/icon/3917033.png"));
+		Image menuIconHomeImage = menuIconHome.getImage();
+		Image resizeMenuIconHomeImage = menuIconHomeImage.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);
+		homeMenuBtn.setIcon(new ImageIcon(resizeMenuIconHomeImage));
+		
+		JMenu studentRegistationMenuBtn = new JMenu("Student Registration ");
+		studentRegistationMenuBtn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				DashboardPanel.setVisible(false);
+				coursesPanel.setVisible(true);
+				StudentRegistaionPanel.setVisible(false);
+				homeLabel.setText("Student Resistation");
+			}
+		}); 
+		studentRegistationMenuBtn.setOpaque(true);
+		studentRegistationMenuBtn.setForeground(Color.WHITE);
+		studentRegistationMenuBtn.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		studentRegistationMenuBtn.setBackground(new Color(128, 128, 255));
+		studentRegistationMenuBtn.setBounds(40, 168, 187, 30);
+		sidebarPanel.add(studentRegistationMenuBtn);
+		
+		ImageIcon menuIconStudentRegistation = new ImageIcon(Dashboard.class.getResource("/main/icon/student.png"));
+		Image menuIconStudentRegistationImage = menuIconStudentRegistation.getImage();
+		Image resizeMenuIconStudentRegistationImage = menuIconStudentRegistationImage.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);
+		studentRegistationMenuBtn.setIcon(new ImageIcon(resizeMenuIconStudentRegistationImage));
+		
+
+		JMenu coursesAddMenuBtn = new JMenu("Courses Add");
+		coursesAddMenuBtn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				DashboardPanel.setVisible(false);
+				coursesPanel.setVisible(true);
+				StudentRegistaionPanel.setVisible(false);
+				homeLabel.setText("Courses Insart");
+			}
+		});
+		coursesAddMenuBtn.setOpaque(true);
+		coursesAddMenuBtn.setForeground(Color.WHITE);
+		coursesAddMenuBtn.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		coursesAddMenuBtn.setBackground(new Color(128, 128, 255));
+		coursesAddMenuBtn.setBounds(40, 224, 187, 30);
+		sidebarPanel.add(coursesAddMenuBtn);
+		
+		ImageIcon menuIconCoursesAdd = new ImageIcon(Dashboard.class.getResource("/main/icon/courses.png"));
+		Image menuIconCoursesAddImage = menuIconCoursesAdd.getImage();
+		Image resizeMenuIconCoursesAddImage = menuIconCoursesAddImage.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);
+		coursesAddMenuBtn.setIcon(new ImageIcon(resizeMenuIconCoursesAddImage));
+		
+		
+		
+		JMenu LogoutBtn = new JMenu("Logout");
+		LogoutBtn.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Admin_Login.main(null);
+				setVisible(false);
+				homeLabel.setText("Logout");
+			}
+		});
+		LogoutBtn.setOpaque(true);
+		LogoutBtn.setForeground(Color.WHITE);
+		LogoutBtn.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		LogoutBtn.setBackground(new Color(128, 128, 255));
+		LogoutBtn.setBounds(40, 277, 187, 30);
+		sidebarPanel.add(LogoutBtn);
+		
+		ImageIcon menuIconLogout = new ImageIcon(Dashboard.class.getResource("/main/icon/logout.png"));
+		Image menuIconLogoutImage = menuIconLogout.getImage();
+		Image resizeMenuIconLogoutImage = menuIconLogoutImage.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);
+		LogoutBtn.setIcon(new ImageIcon(resizeMenuIconLogoutImage));
+		
 	}
 	
 	
@@ -254,7 +353,7 @@ public class Dashboard extends JFrame {
 		JPanel studentCountPanel = new JPanel();
 		studentCountPanel.setBounds(72, 76, 286, 161);
 		DashboardPanel.add(studentCountPanel);
-		studentCountPanel.setBackground(new Color(67, 95, 188));
+		studentCountPanel.setBackground(new Color(128, 128, 255));
 		studentCountPanel.setLayout(null);
 		
 			JLabel totalStudentTitle = new JLabel("Total Student");
@@ -278,7 +377,7 @@ public class Dashboard extends JFrame {
 		courseCountPanel.setBounds(411, 76, 286, 161);
 		DashboardPanel.add(courseCountPanel);
 		courseCountPanel.setLayout(null);
-		courseCountPanel.setBackground(new Color(67, 95, 188));
+		courseCountPanel.setBackground(new Color(128, 128, 255));
 		
 			JLabel totalCourseTitle = new JLabel("Total Course");
 			totalCourseTitle.setHorizontalAlignment(SwingConstants.CENTER);
@@ -298,7 +397,7 @@ public class Dashboard extends JFrame {
 		JPanel studentListPanel = new JPanel();
 		studentListPanel.setBounds(72, 293, 286, 243);
 		DashboardPanel.add(studentListPanel);
-		studentListPanel.setBackground(new Color(49, 186, 215));
+		studentListPanel.setBackground(new Color(109, 188, 231));
 		studentListPanel.setLayout(null);
 		
 			JLabel studentListTitle = new JLabel("Student List");
@@ -337,7 +436,7 @@ public class Dashboard extends JFrame {
 		courseListPanel.setBounds(411, 293, 286, 243);
 		DashboardPanel.add(courseListPanel);
 		courseListPanel.setLayout(null);
-		courseListPanel.setBackground(new Color(49, 186, 215));
+		courseListPanel.setBackground(new Color(109, 188, 231));
 		
 			JLabel courseListTitle = new JLabel("Course List");
 			courseListTitle.setHorizontalAlignment(SwingConstants.CENTER);

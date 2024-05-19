@@ -2,6 +2,8 @@ package database;
 
 import java.sql.Statement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+
 import Project360.DBconnection;
 
 public class admins {
@@ -19,9 +21,21 @@ public class admins {
                  		" PRIMARY KEY ( id ))";
 		 str.executeUpdate(sql);
 		 
-		 
+		 adminInsart();
 // CREATE TABLE ADMINS (id int not NULL AUTO_INCREMENT,  name VARCHAR(255),  email VARCHAR(255),  password INTEGER,  PRIMARY KEY ( id ))
 
 
 	}
+	
+	
+	public static void adminInsart() throws Exception {
+		
+		PreparedStatement admins = DBconnection.connection().prepareStatement("insert into admins (name, email, password) values(?,?,?)");
+							admins.setString(1, "Admin");
+							admins.setString(2, "admin@gmail.com");
+							admins.setString(3, "123456");
+							admins.executeUpdate();
+		
+	}
+	
 }
