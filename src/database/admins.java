@@ -1,10 +1,11 @@
 package database;
 
 import java.sql.Statement;
+
+import resources.DBconnection;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-
-import Project360.DBconnection;
 
 public class admins {
 	public static void main(String[] args) throws Exception {

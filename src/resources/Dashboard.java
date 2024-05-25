@@ -1,4 +1,4 @@
-package Project360;
+package resources;
 
 import java.awt.EventQueue;
 import javax.swing.JFrame;
@@ -42,7 +42,7 @@ public class Dashboard extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		if(Admin_Login.AdminLoginStatus == 0) {
+		if(Admin_Login.AdminLoginStatus == 1) {
 			EventQueue.invokeLater(new Runnable() {
 				public void run() { 
 					try {
@@ -60,7 +60,7 @@ public class Dashboard extends JFrame {
 			Admin_Login.main(args);
 		}
 		
-	}
+	} 
 
 	/**
 	 * Create the frame.
@@ -117,7 +117,7 @@ public class Dashboard extends JFrame {
 		SidebarPanel(sidebarPanel, DashboardPanel, homeLabel, coursesPanel,StudentRegistaionPanel);
 		
 		JLabel title = new JLabel();
-		title.setBounds(23, 0, 218, 50);
+		title.setBounds(23, 0, 218, 50); 
 		menuPanel.add(title);
 		title.setOpaque(true);
 		title.setBackground(new Color(255, 255, 255));
@@ -343,7 +343,7 @@ public class Dashboard extends JFrame {
 				Admin_Login.main(null);
 				setVisible(false);
 				homeLabel.setText("Logout");
-			}
+			} 
 		});
 		LogoutBtn.setOpaque(true);
 		LogoutBtn.setForeground(Color.WHITE);
@@ -418,7 +418,7 @@ public class Dashboard extends JFrame {
 			studentListTitle.setFont(new Font("Raleway SemiBold", Font.PLAIN, 25));
 			studentListTitle.setBounds(10, 0, 302, 44);
 			studentListPanel.add(studentListTitle);
-			
+			 
 			JScrollPane studentListScrollPane = new JScrollPane();
 			studentListScrollPane.setBounds(10, 52, 302, 180);
 			studentListPanel.add(studentListScrollPane);
@@ -548,12 +548,12 @@ public class Dashboard extends JFrame {
 					String name = titleTextField.getText();
 					int price = Integer.parseInt(priceTextField.getText());
 					int credit_hours = Integer.parseInt(crTextField.getText());
-					CoursesInsert.courseDataInsart(name, price,credit_hours);
-					
+					courseDataInsart(name, price,credit_hours);
+					JOptionPane.showMessageDialog(rootPane, "Course Create Success");
 					Dashboard.main(null);
 					setVisible(false);
 					
-					JOptionPane.showMessageDialog(rootPane, "Course Create Success");
+					
 				}
 				catch(Exception e1){
 					e1.printStackTrace();
@@ -582,22 +582,22 @@ public class Dashboard extends JFrame {
 			
 			JScrollPane courseCourseListScrollPane = new JScrollPane();
 			courseCourseListScrollPane.setBounds(10, 55, 644, 177);
-			coursesCourseListPanel.add(courseCourseListScrollPane);
+			coursesCourseListPanel.add(courseCourseListScrollPane); 
 			
 			table = new JTable();
 			DefaultTableModel model = (DefaultTableModel) table.getModel();
 			String colNames[]= {"id", "Title", "Credit Hours"};
 			model.setColumnIdentifiers(colNames);
-			table.getColumnModel().getColumn(0).setPreferredWidth(27); 
+			table.getColumnModel().getColumn(0).setPreferredWidth(27);  
 			table.getColumnModel().getColumn(1).setPreferredWidth(420); 
 			table.getColumnModel().getColumn(2).setPreferredWidth(120); 
 			courseCourseListScrollPane.setViewportView(table);
-			
-			
+			 
+			 
 			ResultSet courseRsCourses = getCourse();
 			String cId, cTitle,cHours;
-			while(courseRsCourses.next()) {
-				cId = courseRsCourses.getString("id");
+			while(courseRsCourses.next()) { 
+				cId = courseRsCourses.getString("id"); 
 				cTitle = courseRsCourses.getString("title");
 				cHours = courseRsCourses.getString("credit_houre");
 				String colRow[] = {cId, cTitle,cHours};
@@ -628,6 +628,15 @@ public class Dashboard extends JFrame {
 		ResultSet rs = pr.executeQuery();		
 		return rs;
 	}
+	
+	public static void courseDataInsart(String name,int price,int credit_hours) throws Exception {
+			
+			PreparedStatement course = DBconnection.courseInsert();
+							  course.setString(1, name);
+							  course.setInt(2, price);
+							  course.setInt(3, credit_hours);
+							  course.executeUpdate();
+		}
 }
 
 

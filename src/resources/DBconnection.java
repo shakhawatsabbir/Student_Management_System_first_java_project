@@ -1,4 +1,4 @@
-package Project360;
+package resources;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,7 +13,7 @@ public class DBconnection {
 			URL = "jdbc:mysql://localhost:3306/"+DATABASE, 
 			USERNAME = "root",
 	 		PASSWORD = "";
-	
+	 
 	public static Connection connection() throws Exception {
 			
 		Class.forName("com.mysql.cj.jdbc.Driver");
@@ -41,6 +41,7 @@ public class DBconnection {
 		PreparedStatement course =   connection().prepareStatement("insert into courses (title, price, credit_houre) values(?,?,?)");
 		return course;
 	}
+	
 	public static int totalCourses() throws Exception {
 		
 		PreparedStatement course =   connection().prepareStatement("select count(*) from courses");

@@ -1,8 +1,10 @@
 package database;
 
 import java.sql.Statement;
+
+import resources.DBconnection;
+
 import java.sql.Connection;
-import Project360.DBconnection;
 
 public class student {
 	public static void main(String[] args) throws Exception {

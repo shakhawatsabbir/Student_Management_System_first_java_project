@@ -1,4 +1,4 @@
-package Project360;
+package resources;
 
 import java.awt.EventQueue;
 
@@ -144,28 +144,7 @@ public class Login extends JFrame {
 		lblTitle.setFont(new Font("Raleway SemiBold", Font.BOLD, 35));
 		lblTitle.setBounds(10, 140, 1020, 50);
 		panel.add(lblTitle);
- 
-		
-		
-//		JLabel title = new JLabel();
-//		title.setIcon(new ImageIcon(Login.class.getResource("/main/icon/221103094112-4840555__1_-removebg-preview.png")));
-//		title.setOpaque(true);
-//		title.setHorizontalAlignment(SwingConstants.CENTER);
-//		title.setForeground(Color.WHITE);
-//		title.setBackground(Color.WHITE);
-//		title.setBounds(198, 60, 588, 69);
-//		panel.add(title);
-//		
-//
-//		ImageIcon backgroudImage = new ImageIcon(Dashboard.class.getResource("/main/icon/221103094112-4840555__1_-removebg-preview.png"));
-//		Image newBackgroudImage = backgroudImage.getImage();
-//		Image resizeNewBackgroudImage = newBackgroudImage.getScaledInstance(200, 40, java.awt.Image.SCALE_SMOOTH);
-//		title.setIcon(new ImageIcon(resizeNewBackgroudImage)); 
-		
-		
-		
-		
-		
+
 		JLabel title = new JLabel();
 		title.setBounds(10, 47, 1020, 80);
 		panel.add(title);

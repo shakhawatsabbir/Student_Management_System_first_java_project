@@ -1,4 +1,4 @@
-package Project360;
+package resources;
 
 import java.security.MessageDigest;
 
