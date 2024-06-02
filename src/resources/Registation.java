@@ -186,7 +186,7 @@ public class Registation extends JFrame {
 		panel.add(lblNewLabel_2);
 		lblNewLabel_2.setFont(new Font("Maiandra GD", Font.BOLD, 16));
 		
-		JLabel lblNewLabel_6 = new JLabel("Registation");
+		JLabel lblNewLabel_6 = new JLabel("Registration ");
 		lblNewLabel_6.setForeground(new Color(255, 255, 255));
 		lblNewLabel_6.setBounds(10, 157, 1020, 49);
 		lblNewLabel_6.setFont(new Font("Raleway SemiBold", Font.BOLD, 35));
