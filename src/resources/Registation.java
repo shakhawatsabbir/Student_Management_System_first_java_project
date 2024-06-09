@@ -42,7 +42,7 @@ public class Registation extends JFrame {
 	private JTextField textField_password;
 	private JTextField textField_rePass;
 
-	/**
+	/** 
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {

@@ -36,14 +36,13 @@ public class Dashboard extends JFrame {
 	private int totalCourse=0, totalStudent =0;
 	private JTextField titleTextField;
 	private JTextField priceTextField;
-	private JTextField codeTextField;
 	private JTextField crTextField;
 	private JPanel coursesPanel; 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		if(Admin_Login.AdminLoginStatus == 1) {
+		if(Admin_Login.AdminLoginStatus == 0) {
 			EventQueue.invokeLater(new Runnable() {
 				public void run() { 
 					try {
@@ -507,87 +506,50 @@ public class Dashboard extends JFrame {
 		lblTitle.setBounds(0, 34, 752, 32);
 		CoursesPanel.add(lblTitle);
 		
-		JLabel lblError = new JLabel("");
-		lblError.setForeground(new Color(255, 0, 0));
-		lblError.setHorizontalAlignment(SwingConstants.CENTER);
-		lblError.setFont(new Font("Raleway SemiBold", Font.BOLD, 15));
-		lblError.setBounds(0, 88, 752, 32);
-		CoursesPanel.add(lblError);
-		
-		JLabel inputTitle = new JLabel("Title"); 
+		JLabel inputTitle = new JLabel("Title");
 		inputTitle.setForeground(new Color(255, 255, 255));
 		inputTitle.setFont(new Font("Raleway SemiBold", Font.PLAIN, 18));
-		inputTitle.setBounds(10, 131, 123, 20);
+		inputTitle.setBounds(55, 133, 123, 20);
 		CoursesPanel.add(inputTitle);
 		
 		titleTextField = new JTextField();
 		titleTextField.setColumns(10);
-		titleTextField.setBounds(10, 162, 256, 32);
+		titleTextField.setBounds(55, 164, 241, 32);
 		CoursesPanel.add(titleTextField);
-		
-		
-		
-
-		
-		JLabel inputCode = new JLabel("Code");
-		inputCode.setForeground(new Color(255, 255, 255));
-		inputCode.setFont(new Font("Raleway SemiBold", Font.PLAIN, 18));
-		inputCode.setBounds(10, 217, 123, 20);
-		CoursesPanel.add(inputCode);
-		
-		codeTextField = new JTextField();
-		codeTextField.setColumns(10);
-		codeTextField.setBounds(10, 248, 256, 32);
-		CoursesPanel.add(codeTextField);
-		
 		
 		JLabel inputPrice = new JLabel("Price");
 		inputPrice.setForeground(new Color(255, 255, 255));
 		inputPrice.setFont(new Font("Raleway SemiBold", Font.PLAIN, 18));
-		inputPrice.setBounds(10, 299, 123, 20);
+		inputPrice.setBounds(55, 221, 123, 20);
 		CoursesPanel.add(inputPrice);
 		
 		priceTextField = new JTextField();
 		priceTextField.setColumns(10);
-		priceTextField.setBounds(10, 330, 256, 32);
+		priceTextField.setBounds(55, 252, 241, 32);
 		CoursesPanel.add(priceTextField);
-		
-		
-		
 		
 		
 		
 		JLabel inputCreditHours = new JLabel("Credit Hours");
 		inputCreditHours.setForeground(new Color(255, 255, 255));
 		inputCreditHours.setFont(new Font("Raleway SemiBold", Font.PLAIN, 18));
-		inputCreditHours.setBounds(10, 384, 123, 20);
+		inputCreditHours.setBounds(55, 307, 123, 20);
 		CoursesPanel.add(inputCreditHours);
 		
 		crTextField = new JTextField();
 		crTextField.setColumns(10);
-		crTextField.setBounds(10, 415, 256, 32);
+		crTextField.setBounds(55, 338, 241, 32);
 		CoursesPanel.add(crTextField);
 		
 		JButton coursesSubmit = new JButton("Submit");
 		coursesSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					int row =table.getSelectedRow();
 					String name = titleTextField.getText();
-					String code = codeTextField.getText();
 					int price = Integer.parseInt(priceTextField.getText());
 					int credit_hours = Integer.parseInt(crTextField.getText());
-					if(row >0) {
-						DefaultTableModel model = (DefaultTableModel) table.getModel();
-						int id = Integer.parseInt(model.getValueAt(row, 0).toString());
-						courseDataUpdate(name,code, price,credit_hours, id);
-						JOptionPane.showMessageDialog(rootPane, "Course Edit Success");
-					}
-					else {
-						courseDataInsart(name,code, price,credit_hours);
-						JOptionPane.showMessageDialog(rootPane, "Course Create Success");
-					}
-					
+					courseDataInsart(name, price,credit_hours);
+					JOptionPane.showMessageDialog(rootPane, "Course Create Success");
 					Dashboard.main(null);
 					setVisible(false);
 					
@@ -600,124 +562,45 @@ public class Dashboard extends JFrame {
 			}
 		});
 		coursesSubmit.setFont(new Font("Raleway Black", Font.PLAIN, 16));
-		coursesSubmit.setBounds(138, 541, 123, 29);
+		coursesSubmit.setBounds(55, 405, 123, 29);
 		CoursesPanel.add(coursesSubmit);
 		
-		JButton coursesEdit = new JButton("Edit");
-		coursesEdit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					int row =table.getSelectedRow();
-					if(row>0) {
-						DefaultTableModel model = (DefaultTableModel) table.getModel();
-						int id = Integer.parseInt(model.getValueAt(row, 0).toString());	
-						String name = titleTextField.getText();
-						String code = codeTextField.getText();
-						int price = Integer.parseInt(priceTextField.getText());
-						int credit_hours = Integer.parseInt(crTextField.getText());
-						courseDataUpdate(name,code, price,credit_hours, id);
-						JOptionPane.showMessageDialog(rootPane, "Course Edit Success");
-						Dashboard.main(null);
-						setVisible(false);
-					}
-					else {
-						lblError.setText("Please select row for Edit");
-					}
-					
-					
-				}
-				catch(Exception e1){
-					e1.printStackTrace();
-				}
-				
-			}
-		});
-		coursesEdit.setFont(new Font("Raleway Black", Font.PLAIN, 16));
-		coursesEdit.setBounds(302, 541, 123, 29);
-		CoursesPanel.add(coursesEdit);
-		
-		
-		
-		JButton coursesDelete = new JButton("Delete");
-		coursesDelete.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					int row =table.getSelectedRow();
-					if(row >0) {
-						DefaultTableModel model = (DefaultTableModel) table.getModel();
-						int id = Integer.parseInt(model.getValueAt(row, 0).toString());
-						courseDataDelete(id);
-						JOptionPane.showMessageDialog(rootPane, "Course Delete Success");
-						Dashboard.main(null);
-						setVisible(false);
-					}
-					else {
-						lblError.setText("Please select row for Delete");
-					}
-					
-					
-					
-				}
-				catch(Exception e1){
-					e1.printStackTrace();
-				}
-				
-			}
-		});
-		coursesDelete.setFont(new Font("Raleway Black", Font.PLAIN, 16));
-		coursesDelete.setBounds(469, 541, 143, 29);
-		CoursesPanel.add(coursesDelete);
 		
 		
 		JPanel coursesCourseListPanel = new JPanel();
-		coursesCourseListPanel.setBounds(284, 131, 468, 316);
+		coursesCourseListPanel.setBounds(359, 131, 393, 310);
 		CoursesPanel.add(coursesCourseListPanel);
 		coursesCourseListPanel.setLayout(null);
-		coursesCourseListPanel.setBackground(new Color(64, 128, 128));
+		coursesCourseListPanel.setBackground(new Color(49, 186, 215));
 		
 			JLabel courseCourseListTitle = new JLabel("Course List");
 			courseCourseListTitle.setHorizontalAlignment(SwingConstants.CENTER);
 			courseCourseListTitle.setForeground(Color.WHITE);
 			courseCourseListTitle.setFont(new Font("Raleway SemiBold", Font.PLAIN, 25));
-			courseCourseListTitle.setBounds(10, 0, 448, 44);
+			courseCourseListTitle.setBounds(10, 11, 373, 44);
 			coursesCourseListPanel.add(courseCourseListTitle);
 			
 			JScrollPane courseCourseListScrollPane = new JScrollPane();
-			courseCourseListScrollPane.setBounds(10, 45, 448, 260);
+			courseCourseListScrollPane.setBounds(10, 55, 373, 244);
 			coursesCourseListPanel.add(courseCourseListScrollPane); 
 			
 			table = new JTable();
-			table.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					int row =table.getSelectedRow();
-					DefaultTableModel model = (DefaultTableModel) table.getModel();
-					titleTextField.setText( model.getValueAt(row, 1).toString());
-					codeTextField.setText(model.getValueAt(row, 2).toString());
-					priceTextField.setText(model.getValueAt(row, 3).toString());
-					crTextField.setText(model.getValueAt(row, 4).toString());
-				}
-			});
 			DefaultTableModel model = (DefaultTableModel) table.getModel();
-			String colNames[]= {"id", "Title","Code","Price", "Credit Hours"};
+			String colNames[]= {"id", "Title", "Credit Hours"};
 			model.setColumnIdentifiers(colNames);
 			table.getColumnModel().getColumn(0).setPreferredWidth(27);  
-			table.getColumnModel().getColumn(1).setPreferredWidth(220); 
-			table.getColumnModel().getColumn(2).setPreferredWidth(100); 
-			table.getColumnModel().getColumn(3).setPreferredWidth(100); 
-			table.getColumnModel().getColumn(4).setPreferredWidth(100); 
+			table.getColumnModel().getColumn(1).setPreferredWidth(420); 
+			table.getColumnModel().getColumn(2).setPreferredWidth(120); 
 			courseCourseListScrollPane.setViewportView(table);
 			 
 			 
 			ResultSet courseRsCourses = getCourse();
-			String cId, cTitle,cCode,cPrice,cHours;
+			String cId, cTitle,cHours;
 			while(courseRsCourses.next()) { 
 				cId = courseRsCourses.getString("id"); 
 				cTitle = courseRsCourses.getString("title");
-				cCode = courseRsCourses.getString("code");
-				cPrice = courseRsCourses.getString("price");
 				cHours = courseRsCourses.getString("credit_houre");
-				String colRow[] = {cId, cTitle,cCode,cPrice,cHours};
+				String colRow[] = {cId, cTitle,cHours};
 				model.addRow(colRow);
 			}
 			
@@ -746,35 +629,14 @@ public class Dashboard extends JFrame {
 		return rs;
 	}
 	
-	public static void courseDataInsart(String name,String code,int price,int credit_hours) throws Exception {
+	public static void courseDataInsart(String name,int price,int credit_hours) throws Exception {
 			
 			PreparedStatement course = DBconnection.courseInsert();
 							  course.setString(1, name);
-							  course.setString(2, code);
-							  course.setInt(3, price);
-							  course.setInt(4, credit_hours);
+							  course.setInt(2, price);
+							  course.setInt(3, credit_hours);
 							  course.executeUpdate();
 		}
-	
-	public static void courseDataUpdate(String name,String code,int price,int credit_hours,int id) throws Exception {
-		
-		PreparedStatement course = DBconnection.courseUpdate();
-						  course.setString(1, name);
-						  course.setString(2, code);
-						  course.setInt(3, price);
-						  course.setInt(4, credit_hours);
-						  course.setInt(5,id);
-						  course.executeUpdate();
-	}
-	
-	public static void courseDataDelete(int id) throws Exception {
-		
-		PreparedStatement course = DBconnection.courseDelete();
-						  course.setInt(1, id);
-						  course.executeUpdate();
-	}
-	
-
 }
 
 

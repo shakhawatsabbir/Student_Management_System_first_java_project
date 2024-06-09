@@ -14,11 +14,12 @@ public class courses {
 		String sql = 	"CREATE TABLE COURSES ("+
 						"id INT not NULL AUTO_INCREMENT ,"+
 						"title VARCHAR(255) ,"+
+						"code VARCHAR(255) ,"+
 						"price INT ,"+
 						"credit_houre INT ,"+
 						"update_at TIMESTAMP default CURRENT_TIMESTAMP,"+
 						"PRIMARY KEY (id))";
-		
+		 
 		stmt.executeUpdate(sql);
 	}
 }

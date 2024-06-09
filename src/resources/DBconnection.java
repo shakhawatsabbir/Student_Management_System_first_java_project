@@ -20,7 +20,7 @@ public class DBconnection {
 		con = DriverManager.getConnection(URL,USERNAME,PASSWORD);
 		
 		return con;	
-	}
+	} 
 	 
 	public static PreparedStatement studentInsart() throws Exception {
 		
@@ -38,7 +38,22 @@ public class DBconnection {
 	
 	public static PreparedStatement courseInsert() throws Exception {
 		
-		PreparedStatement course =   connection().prepareStatement("insert into courses (title, price, credit_houre) values(?,?,?)");
+		PreparedStatement course =   connection().prepareStatement("insert into courses (title, code, price, credit_houre) values(?,?,?,?)");
+		return course;
+	}
+	
+	
+	public static PreparedStatement courseUpdate() throws Exception {
+		
+		PreparedStatement course = con.prepareStatement("update courses set title=? , code=?, price=?, credit_houre=? where id=?");
+
+		return course;
+	}
+
+	public static PreparedStatement courseDelete() throws Exception {
+		
+		PreparedStatement course = con.prepareStatement("delete from courses where id=?");
+
 		return course;
 	}
 	
