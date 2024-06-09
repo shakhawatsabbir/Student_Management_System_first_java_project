@@ -43,7 +43,7 @@ public class Dashboard extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		if(Admin_Login.AdminLoginStatus == 1) {
+		if(Admin_Login.AdminLoginStatus == 0) {
 			EventQueue.invokeLater(new Runnable() {
 				public void run() { 
 					try {
@@ -76,7 +76,6 @@ public class Dashboard extends JFrame {
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
@@ -97,6 +96,7 @@ public class Dashboard extends JFrame {
 
 		JPanel StudentRegistaionPanel = new JPanel();
 		StudentRegistaionPanel.setBounds(268, 63, 772, 657);
+		StudentRegistaionPanel.setVisible(false);
 		contentPane.add(StudentRegistaionPanel);
 		StudentRegistaionPanel.setLayout(null);
 		StudentRegistaionPanel(StudentRegistaionPanel);
@@ -129,14 +129,7 @@ public class Dashboard extends JFrame {
 		Image resizeImage = imgLogo.getScaledInstance(200, 40, java.awt.Image.SCALE_SMOOTH);
 		title.setIcon(new ImageIcon(resizeImage));
 		
-		JLabel lblNewLabel_3 = new JLabel("");
-		lblNewLabel_3.setBackground(new Color(0, 255, 255));
-		lblNewLabel_3.setBounds(0, 0, 772, 657);
-		StudentRegistaionPanel.add(lblNewLabel_3); 
-		ImageIcon backgroudImage = new ImageIcon(Dashboard.class.getResource("/main/icon/background5.jpeg"));
-		Image newBackgroudImage = backgroudImage.getImage();
-		Image resizeNewBackgroudImage = newBackgroudImage.getScaledInstance(900, 700, java.awt.Image.SCALE_SMOOTH);
-		lblNewLabel_3.setIcon(new ImageIcon(resizeNewBackgroudImage));
+
 		
 		
 	}
@@ -146,45 +139,45 @@ public class Dashboard extends JFrame {
 		JLabel lblNewLabel_1 = new JLabel("Name");
 		lblNewLabel_1.setForeground(new Color(255, 255, 255));
 		lblNewLabel_1.setFont(new Font("Maiandra GD", Font.BOLD, 20));
-		lblNewLabel_1.setBounds(140, 203, 141, 34);
+		lblNewLabel_1.setBounds(230, 191, 141, 34);
 		StudentRegistaionPanel.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("Email");
 		lblNewLabel_2.setForeground(new Color(255, 255, 255));
 		lblNewLabel_2.setFont(new Font("Maiandra GD", Font.BOLD, 20));
-		lblNewLabel_2.setBounds(140, 281, 141, 35);
+		lblNewLabel_2.setBounds(230, 289, 141, 35);
 		StudentRegistaionPanel.add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_4 = new JLabel("Password");
 		lblNewLabel_4.setForeground(new Color(255, 255, 255));
 		lblNewLabel_4.setFont(new Font("Maiandra GD", Font.BOLD, 20));
-		lblNewLabel_4.setBounds(140, 351, 141, 35);
+		lblNewLabel_4.setBounds(230, 380, 141, 35);
 		StudentRegistaionPanel.add(lblNewLabel_4);
 		
 		JLabel lblNewLabel_5 = new JLabel("Re - Password");
 		lblNewLabel_5.setForeground(new Color(255, 255, 255));
 		lblNewLabel_5.setFont(new Font("Maiandra GD", Font.BOLD, 20));
-		lblNewLabel_5.setBounds(140, 425, 141, 39);
+		lblNewLabel_5.setBounds(230, 471, 141, 39);
 		StudentRegistaionPanel.add(lblNewLabel_5);
 		
 		JTextField textField_name = new JTextField();
 		textField_name.setColumns(10);
-		textField_name.setBounds(305, 203, 255, 34);
+		textField_name.setBounds(233, 236, 255, 34);
 		StudentRegistaionPanel.add(textField_name);
 		
 		JTextField textField_email = new JTextField();
 		textField_email.setColumns(10);
-		textField_email.setBounds(305, 281, 255, 34);
+		textField_email.setBounds(230, 335, 255, 34);
 		StudentRegistaionPanel.add(textField_email);
 		
 		JTextField textField_password = new JTextField();
 		textField_password.setColumns(10);
-		textField_password.setBounds(305, 351, 255, 34);
+		textField_password.setBounds(230, 426, 255, 34);
 		StudentRegistaionPanel.add(textField_password);
 		
 		JTextField textField_rePass = new JTextField();
 		textField_rePass.setColumns(10);
-		textField_rePass.setBounds(305, 425, 255, 34);
+		textField_rePass.setBounds(230, 521, 255, 34);
 		StudentRegistaionPanel.add(textField_rePass);
 		
 		JButton btnNewButton_2 = new JButton("Sign up");
@@ -200,13 +193,13 @@ public class Dashboard extends JFrame {
 				if(password.equals(re_pass)) {
 					try {
 						password = Password.passwordHash(password);
-						Registation.dataInsart();
+						StudentDataInsart(name,email,password);
 					} catch (Exception e1) {
 						e1.printStackTrace();
 					}
 					JOptionPane.showMessageDialog(rootPane, "Student Create Success");
+					Dashboard.main(null);
 					setVisible(false);
-					Login.main(null);
 				}
 				else
 				{
@@ -215,7 +208,7 @@ public class Dashboard extends JFrame {
 				
 			}
 		});
-		btnNewButton_2.setBounds(440, 496, 120, 34);
+		btnNewButton_2.setBounds(365, 590, 120, 34);
 		btnNewButton_2.setFont(new Font("Maiandra GD", Font.BOLD, 16));
 		StudentRegistaionPanel.add(btnNewButton_2);
 		
@@ -226,6 +219,16 @@ public class Dashboard extends JFrame {
 		lblNewLabel_6.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_6.setBounds(10, 77, 752, 63);
 		StudentRegistaionPanel.add(lblNewLabel_6);
+		
+		
+		JLabel background = new JLabel("");
+		background.setBackground(new Color(0, 255, 255));
+		background.setBounds(0, 0, 772, 657);
+		StudentRegistaionPanel.add(background); 
+		ImageIcon backgroudImage = new ImageIcon(Dashboard.class.getResource("/main/icon/background5.jpeg"));
+		Image newBackgroudImage = backgroudImage.getImage();
+		Image resizeNewBackgroudImage = newBackgroudImage.getScaledInstance(900, 700, java.awt.Image.SCALE_SMOOTH);
+		background.setIcon(new ImageIcon(resizeNewBackgroudImage));
 	}
 	
 	public JLabel menuPanel2(JPanel menuPanel)
@@ -553,10 +556,6 @@ public class Dashboard extends JFrame {
 		CoursesPanel.add(priceTextField);
 		
 		
-		
-		
-		
-		
 		JLabel inputCreditHours = new JLabel("Credit Hours");
 		inputCreditHours.setForeground(new Color(255, 255, 255));
 		inputCreditHours.setFont(new Font("Raleway SemiBold", Font.PLAIN, 18));
@@ -577,7 +576,7 @@ public class Dashboard extends JFrame {
 					String code = codeTextField.getText();
 					int price = Integer.parseInt(priceTextField.getText());
 					int credit_hours = Integer.parseInt(crTextField.getText());
-					if(row >0) {
+					if(row >=0) {
 						DefaultTableModel model = (DefaultTableModel) table.getModel();
 						int id = Integer.parseInt(model.getValueAt(row, 0).toString());
 						courseDataUpdate(name,code, price,credit_hours, id);
@@ -608,7 +607,7 @@ public class Dashboard extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					int row =table.getSelectedRow();
-					if(row>0) {
+					if(row>=0) {
 						DefaultTableModel model = (DefaultTableModel) table.getModel();
 						int id = Integer.parseInt(model.getValueAt(row, 0).toString());	
 						String name = titleTextField.getText();
@@ -643,7 +642,7 @@ public class Dashboard extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					int row =table.getSelectedRow();
-					if(row >0) {
+					if(row >=0) {
 						DefaultTableModel model = (DefaultTableModel) table.getModel();
 						int id = Integer.parseInt(model.getValueAt(row, 0).toString());
 						courseDataDelete(id);
@@ -773,7 +772,14 @@ public class Dashboard extends JFrame {
 						  course.setInt(1, id);
 						  course.executeUpdate();
 	}
-	
+	public static  void StudentDataInsart(String name, String email, String password) throws  Exception  {
+		
+		PreparedStatement 	student = DBconnection.studentInsart();
+							student.setString(1, name);
+							student.setString(2, email);
+							student.setString(3, password);
+							student.executeUpdate();
+	}
 
 }
 

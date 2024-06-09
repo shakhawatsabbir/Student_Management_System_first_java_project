@@ -3,6 +3,7 @@ package database;
 import java.sql.Statement;
 
 import resources.DBconnection;
+import resources.Password;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -32,9 +33,11 @@ public class admins {
 	public static void adminInsart() throws Exception {
 		
 		PreparedStatement admins = DBconnection.connection().prepareStatement("insert into admins (name, email, password) values(?,?,?)");
+		String password = "123456";
+		password = Password.passwordHash(password);
 							admins.setString(1, "Admin");
 							admins.setString(2, "admin@gmail.com");
-							admins.setString(3, "123456");
+							admins.setString(3, password);
 							admins.executeUpdate();
 		
 	}

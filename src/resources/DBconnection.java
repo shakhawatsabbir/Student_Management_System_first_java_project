@@ -9,7 +9,7 @@ public class DBconnection {
 
 	static 	Connection con = null;
 	
-	static 	String   DATABASE = "java_test_project",
+	static 	String   DATABASE = "java_project",
 			URL = "jdbc:mysql://localhost:3306/"+DATABASE, 
 			USERNAME = "root",
 	 		PASSWORD = "";
