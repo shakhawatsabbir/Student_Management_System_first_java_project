@@ -1,5 +1,5 @@
 # Student Managment System 
-## usess language Java
+## Using language Java
 
 
 **Database Connector use :** mysql-connector-j-8.3.0.jar <br />
