@@ -2,8 +2,8 @@
 ## usess language Java
 
 
-**_Database Connector use : _** mysql-connector-j-8.3.0.jar <br />
-**_JRE System Libeary     : _** JabaSE-17 <br />
+**Database Connector use :** mysql-connector-j-8.3.0.jar <br />
+**JRE System Libeary     :** JabaSE-17 <br />
 
 **_Admin Login Details_**  <br />
 | Email | Password |
