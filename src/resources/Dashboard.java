@@ -272,6 +272,14 @@ public class Dashboard extends JFrame {
 						JOptionPane.showMessageDialog(rootPane, "Student Create Success");
 						model.setRowCount(0);
 						studentTable(model);
+						
+						
+						
+						textField_name.setText(" ");
+						textField_email.setText(" ");
+						textField_mobile.setText(" ");
+						textField_password.setText(" ");
+						textField_rePass.setText(" ");
 					} catch (Exception e1) {
 						e1.printStackTrace();
 					}
@@ -715,7 +723,8 @@ public class Dashboard extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					try {
 						int row =table.getSelectedRow();
-						if(row>0) {
+//						System.out.print(row);
+						if(row>=0) {
 							DefaultTableModel model = (DefaultTableModel) table.getModel();
 							int id = Integer.parseInt(model.getValueAt(row, 0).toString());	
 							String name = titleTextField.getText();

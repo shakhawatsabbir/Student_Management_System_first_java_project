@@ -26,10 +26,13 @@ import java.sql.ResultSet;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import java.awt.Color;
+
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.JComboBox;
 
 public class Home extends JFrame {
 
@@ -50,11 +53,21 @@ public class Home extends JFrame {
 	private static JTable table_1;
 	static JLabel lblHome;
 	
+	static JLabel email ;
+	static JLabel name;
+	static JLabel mobile;
+	static JLabel gendar ;
 	
 	public static String StudentName;
 	public static String StudentEmail;
+	public static String StudentMobiel;
+	public static String StudentGendar;
 	public static String EnrollCoursesID;
 	int windoStatus=0;
+	private static JTextField nametextField;
+	private static JTextField emailtextField;
+	private static JTextField mobiletextField;
+	static JComboBox comboBox;
 	/**
 	 * Launch the application.
 	 */
@@ -120,20 +133,55 @@ public class Home extends JFrame {
 		enrollPanel.setVisible(false);
 		enroll(enrollPanel,contentPane);
 		
+
+		JPanel panel_4 = new JPanel();
+		panel_4.setBackground(new Color(64, 128, 128));
+		panel_4.setBounds(263, 56, 777, 664);
+		panel.add(panel_4);
+		panel_4.setLayout(null);
+		panel_4.setVisible(true);
+		profile(panel_4 );
+		
 		JPanel panel_3 = new JPanel();
 		panel_3.setBackground(new Color(255, 255, 255));
 		panel_3.setBounds(0, 56, 263, 664);
 		panel.add(panel_3);
 		panel_3.setLayout(null);
-		sidebar(panel_3, enrollPanel,panel_2);
+		sidebar(panel_3, enrollPanel,panel_2,panel_4);
 		
 		
 		
 		
 		
+		JButton RefresButton = new JButton("Refresh");
+		RefresButton.setHorizontalAlignment(SwingConstants.LEFT);
+		RefresButton.setForeground(new Color(255, 255, 255));
+		RefresButton.setBounds(23, 134, 211, 35);
+		panel_3.add(RefresButton);
+		RefresButton.setFont(new Font("Raleway SemiBold", Font.PLAIN, 15));
+		RefresButton.setBackground(new Color(109, 182, 182));
+		RefresButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Home.main(null);
+				setVisible(false);
+				try {
+//					DefaultTableModel model= (DefaultTableModel) table.getModel();
+//					model.setRowCount(0);
+//					setTable(model);
+					
+					
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+		ImageIcon menuIconRefresh = new ImageIcon(Dashboard.class.getResource("/main/icon/pngwing.png"));
+		Image menuIconRefreshImage = menuIconRefresh.getImage();
+		Image resizeMenuIconRefreshImage = menuIconRefreshImage.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);
+		RefresButton.setIcon(new ImageIcon(resizeMenuIconRefreshImage));
 		
-				
-
+		
+		
 		JLabel closeLabel = new JLabel("");
 		closeLabel.setBounds(972, 11, 58, 34);
 		panel.add(closeLabel);
@@ -147,7 +195,59 @@ public class Home extends JFrame {
 		ImageIcon closeIcon = new ImageIcon(Dashboard.class.getResource("/main/icon/3917189.png"));
 		Image  newCloseIconImage = closeIcon.getImage();
 		Image newCloseIconImageResize = newCloseIconImage.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);
-		closeLabel.setIcon(new ImageIcon(newCloseIconImageResize));				
+		closeLabel.setIcon(new ImageIcon(newCloseIconImageResize));		
+		
+		
+		
+		JButton logoutButton = new JButton("Logout");
+		logoutButton.setHorizontalAlignment(SwingConstants.LEFT);
+		logoutButton.setForeground(new Color(255, 255, 255));
+		logoutButton.setBounds(24, 363, 211, 35);
+		panel_3.add(logoutButton);
+		logoutButton.setFont(new Font("Raleway SemiBold", Font.PLAIN, 15));
+		logoutButton.setBackground(new Color(109, 182, 182));
+		
+		ImageIcon menuIconLogout = new ImageIcon(Dashboard.class.getResource("/main/icon/logout.png"));
+		Image menuIconLogoutImage = menuIconLogout.getImage();
+		Image resizeMenuIconLogoutImage = menuIconLogoutImage.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);
+		logoutButton.setIcon(new ImageIcon(resizeMenuIconLogoutImage));
+		logoutButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Login.userStatus = 0;
+				Login.main(null);
+				setVisible(false);
+			}
+		});
+		
+		
+		
+		
+		
+		JButton updateProfile = new JButton("Update");
+		updateProfile.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String id = StudentId;
+				String name = nametextField.getText();
+				String email = emailtextField.getText();
+				String mobile = mobiletextField.getText();
+				String gendar = (String) comboBox.getSelectedItem();
+				
+				
+				try {
+					StudentDataUpdate(id, name, email, mobile, gendar);
+					studentData(id);
+					JOptionPane.showMessageDialog(panel_4, "Profile update Success");
+					setVisible(false);
+					Home.main(null);
+				} catch (Exception e1) {
+					
+					e1.printStackTrace();
+				}
+			}
+		});
+		updateProfile.setFont(new Font("Raleway SemiBold", Font.PLAIN, 18));
+		updateProfile.setBounds(613, 526, 114, 33);
+		panel_4.add(updateProfile);
 
 	}
 	
@@ -355,6 +455,137 @@ public class Home extends JFrame {
 		
 	}
 	
+	public static void profile(JPanel panel_2) throws Exception {
+
+		studentData(StudentId);
+		
+		JLabel Title = new JLabel("Student Profile ");
+		Title.setBounds(10, 11, 757, 61);
+		panel_2.add(Title);
+		Title.setHorizontalAlignment(SwingConstants.CENTER);
+		Title.setForeground(new Color(255, 255, 255));
+		Title.setFont(new Font("Raleway SemiBold", Font.BOLD, 31));
+		
+		JLabel lblNewLabel = new JLabel("Student ID :");
+		lblNewLabel.setBounds(27, 96, 128, 27);
+		panel_2.add(lblNewLabel);
+		lblNewLabel.setForeground(new Color(255, 255, 255));
+		lblNewLabel.setFont(new Font("Raleway SemiBold", Font.BOLD, 20));
+		
+		JLabel id = new JLabel(String.valueOf(Login.user_id) );
+		id.setBounds(177, 96, 128, 27);
+		panel_2.add(id);
+		id.setForeground(new Color(255, 255, 255));
+		id.setFont(new Font("Raleway SemiBold", Font.BOLD, 20));
+		
+		JLabel lblEmail = new JLabel("Name :");
+		lblEmail.setBounds(27, 134, 128, 27);
+		panel_2.add(lblEmail);
+		lblEmail.setForeground(new Color(255, 255, 255));
+		lblEmail.setFont(new Font("Raleway SemiBold", Font.BOLD, 20));
+		
+		JLabel lblEmail_1 = new JLabel("Email :");
+		lblEmail_1.setBounds(27, 177, 128, 27);
+		panel_2.add(lblEmail_1);
+		lblEmail_1.setForeground(new Color(255, 255, 255));
+		lblEmail_1.setFont(new Font("Raleway SemiBold", Font.BOLD, 20));
+		
+		email = new JLabel(StudentEmail);
+		email.setBounds(177, 177, 347, 27);
+		panel_2.add(email);
+		email.setForeground(new Color(255, 255, 255));
+		email.setFont(new Font("Raleway SemiBold", Font.BOLD, 20));
+		
+		name = new JLabel(StudentName);
+		name.setBounds(177, 134, 291, 27);
+		panel_2.add(name);
+		name.setForeground(new Color(255, 255, 255));
+		name.setFont(new Font("Raleway SemiBold", Font.BOLD, 20));
+		
+		JLabel mobileLBL = new JLabel("Mobile:");
+		mobileLBL.setForeground(Color.WHITE);
+		mobileLBL.setFont(new Font("Raleway SemiBold", Font.BOLD, 20));
+		mobileLBL.setBounds(27, 215, 128, 27);
+		panel_2.add(mobileLBL);
+		
+		mobile = new JLabel(StudentMobiel);
+		mobile.setForeground(Color.WHITE);
+		mobile.setFont(new Font("Raleway SemiBold", Font.BOLD, 20));
+		mobile.setBounds(177, 215, 347, 27);
+		panel_2.add(mobile);
+		
+		gendar = new JLabel(StudentGendar);
+		gendar.setForeground(Color.WHITE);
+		gendar.setFont(new Font("Raleway SemiBold", Font.BOLD, 20));
+		gendar.setBounds(177, 253, 347, 27);
+		panel_2.add(gendar);
+		
+		JLabel gendarLBL = new JLabel("Gendar");
+		gendarLBL.setForeground(Color.WHITE);
+		gendarLBL.setFont(new Font("Raleway SemiBold", Font.BOLD, 20));
+		gendarLBL.setBounds(27, 253, 128, 27);
+		panel_2.add(gendarLBL);
+		
+		
+		JLabel lblEditProfile = new JLabel("Edit Profile :");
+		lblEditProfile.setForeground(Color.WHITE);
+		lblEditProfile.setFont(new Font("Raleway SemiBold", Font.BOLD, 20));
+		lblEditProfile.setBounds(27, 361, 188, 27);
+		panel_2.add(lblEditProfile);
+		
+		JLabel lblNameIN = new JLabel("Name :");
+		lblNameIN.setForeground(Color.WHITE);
+		lblNameIN.setFont(new Font("Raleway SemiBold", Font.BOLD, 20));
+		lblNameIN.setBounds(27, 409, 104, 33);
+		panel_2.add(lblNameIN);
+		
+		nametextField = new JTextField();
+		nametextField.setBounds(141, 412, 214, 33);
+		panel_2.add(nametextField);
+		nametextField.setColumns(10);
+		nametextField.setText(StudentName);
+		
+		emailtextField = new JTextField();
+		emailtextField.setColumns(10);
+		emailtextField.setBounds(513, 412, 214, 33);
+		panel_2.add(emailtextField);
+		emailtextField.setText(StudentEmail);
+		
+		JLabel lblEmailIN = new JLabel("Email :");
+		lblEmailIN.setForeground(Color.WHITE);
+		lblEmailIN.setFont(new Font("Raleway SemiBold", Font.BOLD, 20));
+		lblEmailIN.setBounds(399, 409, 104, 33);
+		panel_2.add(lblEmailIN);
+		
+		mobiletextField = new JTextField();
+		mobiletextField.setColumns(10);
+		mobiletextField.setBounds(141, 469, 214, 33);
+		panel_2.add(mobiletextField);
+		mobiletextField.setText(StudentMobiel);
+		
+		JLabel lblMobileIN = new JLabel("Mobile :");
+		lblMobileIN.setForeground(Color.WHITE);
+		lblMobileIN.setFont(new Font("Raleway SemiBold", Font.BOLD, 20));
+		lblMobileIN.setBounds(27, 466, 104, 33);
+		panel_2.add(lblMobileIN);
+		
+		JLabel lblGendarIN = new JLabel("Gender :");
+		lblGendarIN.setForeground(Color.WHITE);
+		lblGendarIN.setFont(new Font("Maiandra GD", Font.BOLD, 18));
+		lblGendarIN.setBounds(399, 465, 87, 34);
+		panel_2.add(lblGendarIN);
+	
+		comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Male", "Female"}));
+		comboBox.setBounds(513, 468, 214, 34);
+		panel_2.add(comboBox);
+		
+	
+		
+		
+	}
+	
+	
 	public static void dashboard(JPanel panel_2) throws Exception {
 
 		JLabel Title = new JLabel("Student Dashboard ");
@@ -388,13 +619,13 @@ public class Home extends JFrame {
 		lblEmail_1.setForeground(new Color(255, 255, 255));
 		lblEmail_1.setFont(new Font("Raleway SemiBold", Font.BOLD, 20));
 		
-		JLabel email = new JLabel(Login.user_email);
+		JLabel email = new JLabel(StudentEmail);
 		email.setBounds(177, 177, 347, 27);
 		panel_2.add(email);
 		email.setForeground(new Color(255, 255, 255));
 		email.setFont(new Font("Raleway SemiBold", Font.BOLD, 20));
 		
-		JLabel name = new JLabel(Login.user_name);
+		JLabel name = new JLabel(StudentName);
 		name.setBounds(177, 134, 291, 27);
 		panel_2.add(name);
 		name.setForeground(new Color(255, 255, 255));
@@ -463,7 +694,7 @@ public class Home extends JFrame {
 		lblHome.setBounds(263, 30, 187, 22);
 		panel.add(lblHome);
 	}
-	public static void sidebar(JPanel panel_3,JPanel enrollPanel,JPanel panel_2) {
+	public static void sidebar(JPanel panel_3,JPanel enrollPanel,JPanel panel_2, JPanel panel_4) {
 		
 		
 		JButton btnHome = new JButton("Home");
@@ -471,6 +702,7 @@ public class Home extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				enrollPanel.setVisible(false);
 				panel_2.setVisible(true);
+				panel_4.setVisible(false);
 				lblHome.setText("Home");
 			}
 		});
@@ -484,39 +716,35 @@ public class Home extends JFrame {
 		Image menuIconHomeImage = menuIconHome.getImage();
 		Image resizeMenuIconHomeImage = menuIconHomeImage.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);
 		btnHome.setIcon(new ImageIcon(resizeMenuIconHomeImage));
+	
 		
-		JButton RefresButton = new JButton("Refresh");
-		RefresButton.setHorizontalAlignment(SwingConstants.LEFT);
-		RefresButton.setForeground(new Color(255, 255, 255));
-		RefresButton.setBounds(23, 134, 211, 35);
-		panel_3.add(RefresButton);
-		RefresButton.setFont(new Font("Raleway SemiBold", Font.PLAIN, 15));
-		RefresButton.setBackground(new Color(109, 182, 182));
+		JButton btnProfile = new JButton("Profile");
+		btnProfile.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				enrollPanel.setVisible(false);
+				panel_2.setVisible(false);
+				panel_4.setVisible(true);
+				lblHome.setText("Profile");
+			}
+		});
+		btnProfile.setHorizontalAlignment(SwingConstants.LEFT);
+		btnProfile.setForeground(Color.WHITE);
+		btnProfile.setFont(new Font("Raleway SemiBold", Font.PLAIN, 15));
+		btnProfile.setBackground(new Color(109, 182, 182));
+		btnProfile.setBounds(23, 250, 211, 35);
+		panel_3.add(btnProfile);
+		ImageIcon profileIcon = new ImageIcon(Dashboard.class.getResource("/main/icon/student.png"));
+		Image profileIconImage = profileIcon.getImage();
+		Image resizeprofileIconImage = profileIconImage.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);
+		btnProfile.setIcon(new ImageIcon(resizeprofileIconImage));
+
 		
-		ImageIcon menuIconRefresh = new ImageIcon(Dashboard.class.getResource("/main/icon/pngwing.png"));
-		Image menuIconRefreshImage = menuIconRefresh.getImage();
-		Image resizeMenuIconRefreshImage = menuIconRefreshImage.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);
-		RefresButton.setIcon(new ImageIcon(resizeMenuIconRefreshImage));
-		
-				
-		JButton logoutButton = new JButton("Logout");
-		logoutButton.setHorizontalAlignment(SwingConstants.LEFT);
-		logoutButton.setForeground(new Color(255, 255, 255));
-		logoutButton.setBounds(24, 296, 211, 35);
-		panel_3.add(logoutButton);
-		logoutButton.setFont(new Font("Raleway SemiBold", Font.PLAIN, 15));
-		logoutButton.setBackground(new Color(109, 182, 182));
-		
-		ImageIcon menuIconLogout = new ImageIcon(Dashboard.class.getResource("/main/icon/logout.png"));
-		Image menuIconLogoutImage = menuIconLogout.getImage();
-		Image resizeMenuIconLogoutImage = menuIconLogoutImage.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);
-		logoutButton.setIcon(new ImageIcon(resizeMenuIconLogoutImage));
 		
 		
 		JButton enrollCourseBtn = new JButton("Enroll new Course ");
 		enrollCourseBtn.setHorizontalAlignment(SwingConstants.LEFT);
 		enrollCourseBtn.setForeground(new Color(255, 255, 255));
-		enrollCourseBtn.setBounds(23, 241, 211, 35);
+		enrollCourseBtn.setBounds(23, 308, 211, 35);
 		panel_3.add(enrollCourseBtn);
 		enrollCourseBtn.setBackground(new Color(109, 182, 182));
 		enrollCourseBtn.addActionListener(new ActionListener() {
@@ -524,6 +752,7 @@ public class Home extends JFrame {
 //				EnrollCourses.main(null);
 				enrollPanel.setVisible(true);
 				panel_2.setVisible(false);
+				panel_4.setVisible(false);
 //				panel_3.setVisible(false);
 				lblHome.setText("Enroll Course");
 			}
@@ -534,24 +763,8 @@ public class Home extends JFrame {
 		Image resizeMenuIconCoursesAddImage = menuIconCoursesAddImage.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);
 		enrollCourseBtn.setIcon(new ImageIcon(resizeMenuIconCoursesAddImage));
 		
-		logoutButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Login.userStatus = 0;
-				Login.main(null);
-				panel_3.setVisible(false);
-			}
-		});
-		RefresButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					DefaultTableModel model= (DefaultTableModel) table.getModel();
-					model.setRowCount(0);
-					setTable(model);
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
-			}
-		});
+		
+	
 	}
 	
 	
@@ -630,4 +843,32 @@ public class Home extends JFrame {
 			return i;
 							
 	}
+
+	public static void studentData(String user_id) throws Exception {
+		Connection con = DBconnection.connection();
+		PreparedStatement pr = con.prepareStatement("select *from students where id= ?");
+		pr.setString(1, user_id);
+		ResultSet rs = pr.executeQuery();
+		
+		while(rs.next()) {
+			
+			StudentName = rs.getString("name");
+			StudentEmail =rs.getString("email");
+			StudentMobiel=rs.getString("mobile");
+			StudentGendar=rs.getString("gendar");
+		}
+		
+	}
+	
+	public static  void StudentDataUpdate(String id,String name, String email, String mobile, String gendar) throws  Exception  {
+		
+		PreparedStatement student = DBconnection.connection().prepareStatement("update students set name=?, email=?,mobile=?,gendar=? where id=?");
+							student.setString(1, name);
+							student.setString(2, email);
+							student.setString(3, mobile);
+							student.setString(4, gendar);
+							student.setString(5, id);
+							student.executeUpdate();
+	}
+
 }

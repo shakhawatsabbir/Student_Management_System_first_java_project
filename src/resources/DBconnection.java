@@ -54,7 +54,7 @@ public class DBconnection {
 
 		return course;
 	}
-
+	
 	public static PreparedStatement courseDelete() throws Exception {
 		
 		PreparedStatement course = con.prepareStatement("delete from courses where id=?");
